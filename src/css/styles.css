@@ -59,19 +59,31 @@ header {
   background-color: rgb(148, 0, 121);
 }
 
-.loader {
-  width: 50px;
-  height: 50px;
-  border: 5px solid hsl(0, 0%, 80%);
-  border-top: 5px solid hsl(62, 100%, 50%);
-  border-radius: 50%;
+.load-more {
+  display: block;
   margin: 20px auto;
-  animation: spin 1s linear infinite;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.load-more:hover {
+  background-color: #218838;
+}
+
+.loader {
+  display: none;
+  text-align: center;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.js-target {
+  height: 1px;
 }
 
 .gallery {
@@ -117,3 +129,4 @@ header {
   margin: 0 5px;
   white-space: nowrap; /* Запобігає переносу тексту */
 }
+
