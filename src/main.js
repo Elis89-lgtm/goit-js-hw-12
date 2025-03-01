@@ -1,5 +1,7 @@
-import { fetchImages } from './js/pixabay-api.js';
+import { fetchImages } from './js/pixabay-api.js'; 
 import { renderImages, clearGallery, smoothScroll } from './js/render-functions.js';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -7,10 +9,11 @@ import 'izitoast/dist/css/iziToast.min.css';
 const refs = {
     formElem: document.querySelector('#search-form'),
     galleryElem: document.querySelector('.gallery'),
-    targetElem: document.querySelector('.js-target'),
+    loadMoreBtn: document.querySelector('.load-more'),
     loaderElem: document.querySelector('.loader'),
 };
 
+const lightbox = new SimpleLightbox('.gallery a');
 
 // Параметри запиту
 const params = {
@@ -32,13 +35,12 @@ refs.formElem.addEventListener('submit', async e => {
     return;
   }
 
-  // Скидаємо значення для нового запиту
   params.query = query;
   params.page = 1;
 
   clearGallery();
- 
   showLoader();
+  refs.loadMoreBtn.style.display = 'none';
 
   try {
     const data = await fetchImages(params.query, params.page, params.perPage);
@@ -51,57 +53,45 @@ refs.formElem.addEventListener('submit', async e => {
       });
     } else {
       renderImages(data.hits);
-      updateObserver();
+      lightbox.refresh();
+      if (params.page * params.perPage < params.totalHits) {
+        refs.loadMoreBtn.style.display = 'block';
+      }
     }
-      
-    
   } catch (error) {
     iziToast.error({ title: 'Error', message: 'Something went wrong. Please try again later.' });
   } finally {
     hideLoader();
   }
 
-  // Очистка поля форми 
   queryInput.value = '';
 });
 
-async function loadMore() {
-    params.page += 1;
-    showLoader();
-
+refs.loadMoreBtn.addEventListener('click', async () => {
+  params.page += 1;
+  showLoader();
 
   try {
     const data = await fetchImages(params.query, params.page, params.perPage);
-    renderImages(data.hits, true);
+    renderImages(data.hits);
+    lightbox.refresh();
     smoothScroll();
-    updateObserver();
-     
-} catch (error) {
+
+    if (params.page * params.perPage >= params.totalHits) {
+      refs.loadMoreBtn.style.display = 'none';
+      iziToast.info({ title: 'End', message: "We're sorry, but you've reached the end of search results." });
+    }
+  } catch (error) {
     iziToast.error({ title: 'Error', message: 'Something went wrong.' });
-} finally {
+  } finally {
     hideLoader();
-}
-}
-
-const observer = new IntersectionObserver(entries => {
-if (entries[0].isIntersecting) {
-    loadMore();
-}
-}, { rootMargin: '100px' });
-
-function updateObserver() {
-if (params.page * params.perPage < params.totalHits) {
-    observer.observe(refs.targetElem);
-} else {
-    observer.unobserve(refs.targetElem);
-    iziToast.info({ title: 'End', message: "We're sorry, but you've reached the end of search results." });
-}
-}
+  }
+});
 
 function showLoader() {
-refs.loaderElem.style.display = 'block';
+  refs.loaderElem.style.display = 'block';
 }
 
 function hideLoader() {
-refs.loaderElem.style.display = 'none';
+  refs.loaderElem.style.display = 'none';
 }
