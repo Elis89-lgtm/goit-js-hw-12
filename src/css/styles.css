@@ -130,3 +130,7 @@ header {
   white-space: nowrap; /* Запобігає переносу тексту */
 }
 
+.hidden {
+  display: none;
+  opacity: 0;
+}

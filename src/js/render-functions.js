@@ -4,6 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const gallery = document.querySelector('.gallery');
 let lightbox;
 
+
 export function renderImages(images, isAppend = false) {
     const markup = images
     .map(image => `
@@ -25,11 +26,7 @@ export function renderImages(images, isAppend = false) {
         gallery.innerHTML = markup;
       }
     
-    if (!lightbox) {
-        lightbox = new SimpleLightbox('.gallery a');
-    } else {
-        lightbox.refresh();
-    }
+    
 }
 
 export function clearGallery() {

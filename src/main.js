@@ -5,6 +5,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+const lightbox = new SimpleLightbox('.gallery a');
+
 // Посилання на елементи
 const refs = {
     formElem: document.querySelector('#search-form'),
@@ -13,7 +15,7 @@ const refs = {
     loaderElem: document.querySelector('.loader'),
 };
 
-const lightbox = new SimpleLightbox('.gallery a');
+
 
 // Параметри запиту
 const params = {
@@ -87,6 +89,7 @@ refs.loadMoreBtn.addEventListener('click', async () => {
     hideLoader();
   }
 });
+
 
 function showLoader() {
   refs.loaderElem.style.display = 'block';
