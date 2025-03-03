@@ -75,7 +75,7 @@ refs.loadMoreBtn.addEventListener('click', async () => {
 
   try {
     const data = await fetchImages(params.query, params.page, params.perPage);
-    renderImages(data.hits);
+    renderImages(data.hits,true);
     lightbox.refresh();
     smoothScroll();
 

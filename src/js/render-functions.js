@@ -22,6 +22,7 @@ export function renderImages(images, isAppend = false) {
 
     if (isAppend) {
         gallery.insertAdjacentHTML('beforeend', markup);
+        smoothScroll();
       } else {
         gallery.innerHTML = markup;
       }
