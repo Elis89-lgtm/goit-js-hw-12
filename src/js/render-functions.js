@@ -35,13 +35,15 @@ export function clearGallery() {
 }
 
 export function smoothScroll() {
-    // Отримуємо висоту першої картки галереї
-    const firstCard = gallery.firstElementChild;
-    if (firstCard) {
-      const { height } = firstCard.getBoundingClientRect();
+  const cards = document.querySelectorAll('.gallery-item'); // Отримуємо всі картки
+  if (cards.length > 0) {
+      const cardHeight = cards[0].getBoundingClientRect().height; // Висота однієї картки
+      const perPage = 40; 
+      const pagesToScroll = 2; // Кількість сторінок для прокрутки
+
       window.scrollBy({
-        top: height * 2,
-        behavior: 'smooth',
+          top: cardHeight * perPage * pagesToScroll, // Прокрутка на 2 сторінки
+          behavior: 'smooth',
       });
-    }
   }
+}
