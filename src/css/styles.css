@@ -76,12 +76,12 @@ header {
 }
 
 .loader {
-  display: none; /* Лоадер спочатку прихований */
-  border: 5px solid #f3f3f3; /* Світло-сірий фон */
-  border-top: 5px solid #007bff; /* Синій кольоровий верх */
-  border-radius: 50%; /* Кругла форма */
-  width: 40px; /* Розмір лоадера */
-  height: 40px; /* Розмір лоадера */
+  display: none; 
+  border: 5px solid #f3f3f3; 
+  border-top: 5px solid #007bff; 
+  border-radius: 50%; 
+  width: 80px; 
+  height: 80px; 
   animation: spin 1s linear infinite; /* Анімація обертання */
   margin: 20px auto; /* Центруємо лоадер */
 }
