@@ -76,10 +76,19 @@ header {
 }
 
 .loader {
-  display: none;
-  text-align: center;
-  font-size: 18px;
-  color: #007bff;
+  display: none; /* Лоадер спочатку прихований */
+  border: 5px solid #f3f3f3; /* Світло-сірий фон */
+  border-top: 5px solid #007bff; /* Синій кольоровий верх */
+  border-radius: 50%; /* Кругла форма */
+  width: 40px; /* Розмір лоадера */
+  height: 40px; /* Розмір лоадера */
+  animation: spin 1s linear infinite; /* Анімація обертання */
+  margin: 20px auto; /* Центруємо лоадер */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); } /* Початкова позиція */
+  100% { transform: rotate(360deg); } /* Кінець обертання */
 }
 
 .js-target {
